@@ -202,11 +202,12 @@ RUN  echo -e "LANG=\"en_US.UTF-8\" \n LC_ALL=\"en_US.UTF-8\"" > /etc/sysconfig/i
        org.apache.catalina.util.ServerInfo  >> ${CONFLUENCE_INSTALL}/atlassian-version.txt  \
   && sync \
   && rm -f ./atlassian-confluence-${CONFLUENCE_VERSION}-x64.bin \
-  && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} ${CONFLUENCE_HOME} \
   && HOME_DIR=$(grep ${OS_USERNAME} /etc/passwd | cut -d ':' -f 6) \
   && cp /etc/localtime ${HOME_DIR}/ \
   && chown ${OS_USERNAME}:${OS_GROUPNAME} ${HOME_DIR}/localtime \
   && ln -sf ${HOME_DIR}/localtime /etc/localtime \
+  && curl  https://stratavo-admin.okta.com/static/toolkits/okta-confluence-3.1.4.jar -o ${CONFLUENCE_INSTALL}/lib/okta-confluence-3.1.4.jar \
+  && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} ${CONFLUENCE_HOME} \
   && sync 
 
 # PLUGINS_FILE (Confluence plugins):

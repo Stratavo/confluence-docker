@@ -7,10 +7,10 @@ ENV OS_GROUPNAME confluence
 ENV CONFLUENCE_HOME /var/atlassian/application-data/confluence
 ENV CONFLUENCE_INSTALL=/opt/atlassian/confluence
 
-COPY seraph-config.xml ${CONFLUENCE_INSTALL}/atlassian-confluence/WEB-INF/classes
+COPY seraph-config.xml ${CONFLUENCE_INSTALL}/confluence/WEB-INF/classes
 COPY okta_acs.jsp ${CONFLUENCE_INSTALL}
 
-RUN curl  https://stratavo-admin.okta.com/static/toolkits/okta-confluence-3.1.4.jar -o ${CONFLUENCE_INSTALL}/atlassian-confluence/WEB-INF/lib/okta-confluence-3.1.4.jar \
+RUN curl  https://stratavo-admin.okta.com/static/toolkits/okta-confluence-3.1.4.jar -o ${CONFLUENCE_INSTALL}/opt/atlassian/confluence/confluence/WEB-INF/lib \
   && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} \
   && sync 
 

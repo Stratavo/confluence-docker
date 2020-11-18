@@ -28,7 +28,7 @@ LABEL maintainer="kaz@praqma.net heh@praqma.net"
 # CONFLUENCE_VERSION:
 # ------------------
 # The value for CONFLUENCE_VERSION should be a version number, which is part of the name of the confluence software bin/tarball/zip.
-ENV CONFLUENCE_VERSION 7.8.3
+ENV CONFLUENCE_VERSION 7.9.0
 
 # OS_USERNAME:
 # -----------
@@ -206,11 +206,12 @@ RUN  echo -e "LANG=\"en_US.UTF-8\" \n LC_ALL=\"en_US.UTF-8\"" > /etc/sysconfig/i
   && cp /etc/localtime ${HOME_DIR}/ \
   && chown ${OS_USERNAME}:${OS_GROUPNAME} ${HOME_DIR}/localtime \
   && ln -sf ${HOME_DIR}/localtime /etc/localtime \
-  && rm ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib/crowd-ldap-2.10.5-j11-3.jar \
   && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} ${CONFLUENCE_HOME} \
   && sync 
 
-COPY crowd-ldap-4.0.2.jar ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib 
+#  && rm ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib/crowd-ldap-2.10.5-j11-3.jar \
+
+#COPY crowd-ldap-4.0.2.jar ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib 
 
 # PLUGINS_FILE (Confluence plugins):
 # ----------------------------------

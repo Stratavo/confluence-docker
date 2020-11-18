@@ -65,7 +65,7 @@ ENV CONFLUENCE_INSTALL /opt/atlassian/confluence
 # Actual management of timezone is handled in the docker-entrypoint.sh,
 #   but it is important for it to specidied in image, or passed to the container.
 # TimeZone is set in a non-so-straightforward way, for certain reason.
-ENV TZ_FILE "/usr/share/zoneinfo/Europe/Oslo"
+ENV TZ_FILE "/usr/share/zoneinfo/Europe/London"
 
 # JAVA_HOME:
 # ---------
@@ -177,6 +177,7 @@ ENV CATALINA_OPTS "-Dfile.encoding=UTF-8 -Xms4096m -Xmx4096m"
 
 COPY confluence-response.varfile /tmp/
 
+
 ENV CONFLUENCE_DOWNLOAD_LOCATION https://www.atlassian.com/software/confluence/downloads/binary
 
 
@@ -206,8 +207,11 @@ RUN  echo -e "LANG=\"en_US.UTF-8\" \n LC_ALL=\"en_US.UTF-8\"" > /etc/sysconfig/i
   && cp /etc/localtime ${HOME_DIR}/ \
   && chown ${OS_USERNAME}:${OS_GROUPNAME} ${HOME_DIR}/localtime \
   && ln -sf ${HOME_DIR}/localtime /etc/localtime \
+  && rm ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib/crowd-ldap-2.10.5-j11-3.jar \
   && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} ${CONFLUENCE_HOME} \
   && sync 
+
+COPY crowd-ldap-4.0.2.jar ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib 
 
 # PLUGINS_FILE (Confluence plugins):
 # ----------------------------------

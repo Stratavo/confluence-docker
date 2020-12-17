@@ -209,7 +209,7 @@ RUN  echo -e "LANG=\"en_US.UTF-8\" \n LC_ALL=\"en_US.UTF-8\"" > /etc/sysconfig/i
   && ln -sf ${HOME_DIR}/localtime /etc/localtime \
   && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} ${CONFLUENCE_HOME} \
   && export JAVA_HOME=${CONFLUENCE_INSTALL}/jre \
-  && ${JAVA_HOME}/bin/keytool -import -alias stratavo_internal_ca -cacerts -storepass changeit -noprompt \
+  && ${JAVA_HOME}/bin/keytool -import -alias stratavo_internal_ca -cacerts  -file /tmp/stratavo-ca.cer -storepass changeit -noprompt \
   && sync 
 
 #  && rm ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib/crowd-ldap-2.10.5-j11-3.jar \

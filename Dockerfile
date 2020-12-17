@@ -28,7 +28,7 @@ LABEL maintainer="kaz@praqma.net heh@praqma.net"
 # CONFLUENCE_VERSION:
 # ------------------
 # The value for CONFLUENCE_VERSION should be a version number, which is part of the name of the confluence software bin/tarball/zip.
-ENV CONFLUENCE_VERSION 7.9.0
+ENV CONFLUENCE_VERSION 7.10.0
 
 # OS_USERNAME:
 # -----------
@@ -175,6 +175,7 @@ ENV CATALINA_OPTS "-Dfile.encoding=UTF-8 -Xms4096m -Xmx4096m"
 # * On a fresh installation, the response.varfile is found under: /opt/atlassian/confluence/.install4j/response.varfile
 
 COPY confluence-response.varfile /tmp/
+COPY stratavo-ca.cer /tmp/
 
 
 ENV CONFLUENCE_DOWNLOAD_LOCATION https://www.atlassian.com/software/confluence/downloads/binary
@@ -207,6 +208,8 @@ RUN  echo -e "LANG=\"en_US.UTF-8\" \n LC_ALL=\"en_US.UTF-8\"" > /etc/sysconfig/i
   && chown ${OS_USERNAME}:${OS_GROUPNAME} ${HOME_DIR}/localtime \
   && ln -sf ${HOME_DIR}/localtime /etc/localtime \
   && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} ${CONFLUENCE_HOME} \
+  && export JAVA_HOME=/opt/atlassian/jira/jre
+  && ${JAVA_HOME}/bin/keytool -import -alias stratavo_internal_ca -keystore ${JAVA_HOME}/lib/security/cacerts -file /tmp/stratavo-ca.cer -storepass changeit -noprompt
   && sync 
 
 #  && rm ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib/crowd-ldap-2.10.5-j11-3.jar \

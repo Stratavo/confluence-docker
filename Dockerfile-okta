@@ -13,6 +13,7 @@ RUN curl https://stratavo-admin.okta.com/static/toolkits/okta-confluence-3.1.5.j
   && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} \
   && rm -f ${CONFLUENCE_INSTALL}/confluence/WEB-INF/classes/seraph-config.xml \
   && ln -s ${CONFLUENCE_HOME}/seraph-config.xml ${CONFLUENCE_INSTALL}/confluence/WEB-INF/classes/seraph-config.xml  \
+  && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} ${CONFLUENCE_HOME} \
   && sync 
 
 USER ${OS_USERNAME}:${OS_GROUPNAME}

@@ -11,7 +11,7 @@ COPY okta_acs.jsp ${CONFLUENCE_INSTALL}/confluence
 
 RUN curl https://stratavo-admin.okta.com/static/toolkits/okta-confluence-3.1.5.jar -o ${CONFLUENCE_INSTALL}/confluence/WEB-INF/lib/okta-confluence-3.1.5.jar \
   && chown -R ${OS_USERNAME}:${OS_GROUPNAME} ${CONFLUENCE_INSTALL} \
-  && rm -f ${CONFLUENCE_INSTALL}/confluence/WEB-INF/classes/seraph-config.xml 
+  && rm -f ${CONFLUENCE_INSTALL}/confluence/WEB-INF/classes/seraph-config.xml \
   && ln -s ${CONFLUENCE_HOME}/seraph-config.xml ${CONFLUENCE_INSTALL}/confluence/WEB-INF/classes/seraph-config.xml  \
   && sync 
 

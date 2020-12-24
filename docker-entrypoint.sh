@@ -161,6 +161,11 @@ else
 fi
 echo
 
+if [ -f ${CONFLUENCE_HOME}/seraph-config.xml ]
+then
+  cp ${CONFLUENCE_HOME}/seraph-config.xml ${CONFLUENCE_INSTALL}/confluence/WEB-INF/classes/seraph-config.xml
+fi 
+
 
 # Show additional information for system logs (again):
 echo
